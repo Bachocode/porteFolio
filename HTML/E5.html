@@ -12,10 +12,116 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-
+ 
     <link rel="stylesheet" href="../CSS/style-heade-foter.css" />
+    <link rel="stylesheet" href="../CSS/style-projets.css" />
     <link rel="stylesheet" href="../CSS/style-profil.css" />
   </head>
-
+ 
   <body class="page">
-    <div data-include="includes/header.html"></div>
+    <header class="site-nav">
+      <div data-include="includes/header.html"></div>
+    </header>
+
+    <main>
+      <section style="padding: 2.5rem 0">
+        <div class="container-xl">
+          <div class="reveal">
+            <h1 class="text-4xl md:text-5xl font-extrabold">
+              Projets & réalisations
+            </h1>
+            <p style="color: rgba(255, 255, 255, 0.74)" class="mt-3 max-w-2xl">
+              Sélection de pages et contenus de mon portfolio. (Je peux
+              compléter au fur et à mesure avec d'autres réalisations.)
+            </p>
+          </div>
+ 
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6 grid-animated"
+          >
+           
+ 
+                 <a
+              class="card card-pad hover-lift reveal reveal-delay-4 project-card"
+              href="P-SAINTELUCIE.html"
+              style="text-decoration: none"
+            >
+              <div class="badge badge-pulse">
+                <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i
+                >En Entreprise
+              </div>
+              <h2 class="text-2xl font-extrabold mt-3">Sainte Lucie</h2>
+              <p class="muted">
+                Proget realiser en tant que technicienne informatique.
+              </p>
+            </a>
+             
+             
+            <a
+              class="card card-pad hover-lift reveal reveal-delay-4 project-card"
+              href="P-estiam.html"
+              style="text-decoration: none"
+            >
+              <div class="badge badge-pulse">
+                <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i
+                >Études
+              </div>
+              <h2 class="text-2xl font-extrabold mt-3">ESTIAM (BTS SIO)</h2>
+              <p class="muted">
+                Formation en cours et compétences travaillées.
+              </p>
+            </a>
+ 
+            <a
+              class="card card-pad hover-lift reveal reveal-delay-5 project-card"
+              href="P-FST.html"
+              style="text-decoration: none"
+            >
+              <div class="badge">
+                <i class="fa-solid fa-school" aria-hidden="true"></i>Études
+              </div>
+              <h2 class="text-2xl font-extrabold mt-3">FST (Licence)</h2>
+              <p class="muted">Maintenance réseaux et bases solides.</p>
+            </a>
+ 
+            <a
+              class="card card-pad hover-lift reveal reveal-delay-6 project-card"
+              href="P-Lycer.html"
+              style="text-decoration: none"
+            >
+              <div class="badge">
+                <i class="fa-solid fa-award" aria-hidden="true"></i>Études
+              </div>
+              <h2 class="text-2xl font-extrabold mt-3">Lycée</h2>
+              <p class="muted">Parcours et obtention du bac.</p>
+            </a>
+ 
+ 
+ 
+ 
+            <a
+              class="card card-pad hover-lift reveal reveal-delay-2 project-card"
+              href="vielle.html"
+              style="text-decoration: none"
+            >
+              <div class="badge badge-pulse">
+                <i class="fa-solid fa-rss" aria-hidden="true"></i>Veille
+              </div>
+              <h2 class="text-2xl font-extrabold mt-3">Veille technologique</h2>
+              <p class="muted">Sujets cyber/réseaux et notes de synthèse.</p>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+ 
+    <button id="toTop" class="btn" type="button" aria-label="Revenir en haut">
+      <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
+ 
+    <div data-include="includes/footer.html"></div>
+    <script src="../JS/app.js" defer></script>
+  </body>
+</html>
+ 
+ 

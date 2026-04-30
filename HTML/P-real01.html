@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio - Étudiante BTS SIO SISR</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+ 
+    <link rel="stylesheet" href="../CSS/style-heade-foter.css" />
+    <link rel="stylesheet" href="../CSS/style-projets.css" />
+    <link rel="stylesheet" href="../CSS/style-profil.css" />
+  </head>
+ 
+  <body class="page">
+    <header class="site-nav">
+      <div data-include="includes/header.html"></div>
+    </header>
+
+    <main>
+    <section style="padding: 2.5rem 0">
+        <div class="container-xl">
+          <div class="reveal">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-20">
+              Réalisations N°01
+            </h1>
+            <h2 class="text-2xl md:text-3xl font-extrabold mt-3 mb-10">
+              Mise en œuvre d'une architecture réseau segmentée (VLANs)
+              et sécurisée par un firewall pfSense avec routage inter-VLAN.
+            </h2>
+            
+          </div>
+
+
+          <div> <p class="mb-8">
+
+La segmentation réseau
+ consiste à diviser un réseau informatique en plusieurs sous-réseaux isolés, 
+ appelés <strong>VLANs (Virtual Local Area Networks).
+</strong> 
+</p>
+
+<p class=" mb-5">
+   <strong>L'objectif principal</strong> est de limiter la "surface d'attaque" : si un équipement dans le VLAN Invités est compromis,
+     l'attaquant ne peut pas accéder au VLAN Serveurs sans passer par le pare-feu.
+
+</p>
+
+<div class="mt-4 mb-20">
+                <p ><strong>Les intérêts de cette architecture sont :</strong></p>
+                <ol class="mt-2 ml-5 list-decimal mb-10">
+                  <li class="mt-1"><strong>Sécurité accrue : </strong> Isolation native des flux critiques.</li>
+                  <li class="mt-1"><strong>Optimisation des performances : </strong> Réduction des domaines de diffusion (broadcast).</li>
+                  <li class="mt-1"><strong>Contrôle granulaire : </strong> Application de règles de filtrage (ACL) spécifiques à chaque métier.</li>
+                  <li class="mt-1"><strong>Conformité : </strong> Respect des bonnes pratiques de l'ANSSI en matière de cloisonnement.</li>
+                </ol>
+
+                <p class="mt-3 font-semibold">Prenons un exemple pour bien comprendre...</p>
+                <p class="mt-2">Dans un réseau non segmenté, un visiteur en Wi-Fi pourrait techniquement accéder à la base de données des serveurs. Avec ma solution, le pare-feu pfSense bloque systématiquement cette tentative.</p>
+
+                <ul class="mt-3 ml-5 list-disc">
+                  <li><a
+                href="../doc/Fiche Analyse & Conception.pdf"
+                class="btn btn-secondary"
+              >
+                <i class="fa-solid fa-file-alt" aria-hidden="true"></i> Analyse et conception
+              </a></li>
+                  <li><a
+                href="../doc/Fiche de realisation 1 Agaichatou Alpha YATTARA.pdf"
+                class="btn btn-secondary"
+              >
+                <i class="fa-solid fa-file-alt" aria-hidden="true"></i> Fiche de
+                réalisation
+              </a></li>
+                </ul>
+              </div>
+          </div>
+
+
+
+          <figure class="mt-8 mb-20">
+            <img src="../photos/shema-reseaux.png" alt="Schéma VLAN pfSense" class="w-full max-w-3xl mx-auto border rounded shadow-md" />
+            <figcaption class="mt-2 muted text-center">Schéma : pfSense en Router-on-a-Stick avec VLAN 10/20/30/40 (10.0.10.0/24, 10.0.20.0/24, 10.0.30.0/24, 10.0.40.0/24)</figcaption>
+          </figure>
+
+          
+
+          
+            <div class="mt-6 mb-20">
+              <p class="font-semibold">Le "Router-on-a-Stick" : L'intelligence au cœur du réseau</p>
+              <p class="mt-2">Pour gérer ces VLANs, j'ai utilisé la méthode du <strong>Router-on-a-Stick</strong> via le protocole <strong>IEEE 802.1Q</strong>.</p>
+
+              <p class="mt-2">Le protocole 802.1Q permet d'ajouter une "étiquette" (Tag) aux paquets de données. Cela permet de faire circuler plusieurs réseaux différents sur un seul et même câble physique (le <em>Trunk</em>).</p>
+
+              <p class="mt-2 mb-10">L'utilisation du pare-feu <strong>pfSense</strong> comme routeur central permet de filtrer chaque paquet qui tente de passer d'un VLAN à un autre. C'est le "poste de contrôle" du réseau.</p>
+
+              <p class="mt-4 font-semibold">Parlons un peu de l'évolution...</p>
+              <p class="mt-2">Historiquement, on utilisait un câble physique par réseau, ce qui était coûteux et peu flexible. Aujourd'hui, grâce à la virtualisation sous <strong>Proxmox VE</strong> et au standard 802.1Q, nous pouvons créer des dizaines de réseaux sécurisés en quelques clics !</p>
+
+              <p class="mt-3 mb-10">En 2026, la segmentation n'est plus une option mais une nécessité face à l'augmentation des cybermenaces. Mon projet intègre également une perspective de supervision avec <strong>Zabbix</strong> pour surveiller la santé de ces flux en temps réel.</p>
+
+              <p class="mt-3 font-semibold">Prenons un exemple pour bien comprendre...</p>
+              <p class="mt-2">Lorsqu'un utilisateur du <strong>VLAN 30</strong> tente de contacter un serveur du <strong>VLAN 20</strong>, le pfSense analyse la règle de filtrage. Si la règle l'autorise, le paquet passe ; sinon, il est détruit et l'événement est enregistré dans les logs de sécurité.</p>
+            
+            
+            
+            <ul class="mt-3 ml-5 list-disc">
+                  <li><a
+                href="../doc/Instalation et configuration PFsense.pdf"
+                class="btn btn-secondary"
+              >
+                <i class="fa-solid fa-file-alt" aria-hidden="true"></i> Procedure d'instation et configuration de PfSense sous hypervisure Proxmox
+              </a></li>
+                  <li><a
+                href="../doc/Fiche de realisation 1 Agaichatou Alpha YATTARA.pdf"
+                class="btn btn-secondary"
+              >
+                <i class="fa-solid fa-file-alt" aria-hidden="true"></i>Support de presentation details de la realisation
+              </a></li>
+                </ul>
+            
+            </div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>        
+      </section>
+    </main>
+ 
+    
+ 
+    <div data-include="includes/footer.html"></div>
+    <script src="../JS/app.js" defer></script>
+  </body>
+</html>
