@@ -24,7 +24,131 @@
     </header>
 
     <main>
-     
+    <section style="padding: 2.5rem 0">
+        <div class="container-xl">
+          <div class="reveal">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-20">
+              Réalisations N°02
+            </h1>
+            <h2 class="text-2xl md:text-3xl font-extrabold mt-3 mb-10">
+              Mise en œuvre d'une infrastructure Active Directory et
+               d'un service de Helpdesk GLPI
+            </h2>
+            
+          </div>
+
+
+          <div> <p class="mb-8">
+
+Ce projet combine l'administration de systèmes <strong> Windows Server 2022 et Linux </strong> , en mettant
+ l'accent sur la centralisation des identités et la structuration du support technique.
+</p>
+
+<p class=" mb-5">
+   <strong>L'objectif principal</strong> est dde faire évoluer l'infrastructure de l'organisation STLTEST vers une gestion centralisée et sécurisée.
+
+</p>
+
+<div class="project-sections mt-8">
+  <section class="project-item mb-6">
+    <h3 class="text-xl font-bold">1. L'annuaire Active Directory (AD DS)</h3>
+    <p>
+      L'Active Directory est le pilier de l'identification au sein de l'organisation. Il permet de regrouper les ressources (utilisateurs, ordinateurs, groupes) dans un annuaire sécurisé.
+    </p>
+
+    <p>Les intérêts majeurs de cette mise en œuvre sont :</p>
+    <ul>
+      <li><strong>Administration centralisée :</strong> Gestion simplifiée des comptes utilisateurs.</li>
+      <li><strong>Sécurisation par GPO :</strong> Application de politiques de sécurité (mots de passe, restrictions système).</li>
+      <li><strong>Services Réseau :</strong> Automatisation de l'adressage (DHCP) et résolution de noms (DNS).</li>
+    </ul>
+
+    <div class="my-4">
+      <img class="schema-image" src="../photos/shemaAD.png" alt="Arborescence Active Directory" />
+    </div>
+
+    <p>
+      <a class="btn" href="../doc/Fiche Analyse & Conception.pdf">Analyse et Conception</a>
+      <a class="btn ml-4" href="../doc/Documentation Technique.pdf">Fiche de réalisation</a>
+      <a class="btn" href="../doc/Fiche Analyse & Conception.pdf">Procedure de deploiyement de Windows servers </a>
+    </p>
+  </section>
+
+  <section class="project-item mb-6">
+    <h3 class="text-xl font-bold">2. La solution de gestion de parc et Helpdesk (GLPI)</h3>
+    <p>
+      Le support technique de STLTEST était initialement informel. L'installation de GLPI sur un serveur Linux permet de professionnaliser la maintenance et le suivi des incidents.
+    </p>
+
+    <p><strong>Pourquoi avoir choisi GLPI ?</strong></p>
+    <ul>
+      <li><strong>Gestion de parc :</strong> Inventaire automatisé des équipements réseau.</li>
+      <li><strong>Ticketing :</strong> Historisation des pannes et suivi des interventions.</li>
+      <li><strong>Interopérabilité :</strong> Utilisation du protocole LDAP pour synchroniser les comptes utilisateurs de l'Active Directory.</li>
+    </ul>
+     </section>
+
+  <section class="project-item mb-6">
+    <h3 class="text-xl font-bold">3. L'interconnexion LDAP : Le "Cœur" du projet</h3>
+    <p>
+      Le point fort de cette réalisation réside dans la communication entre le serveur Windows et le serveur Linux. Grâce au protocole LDAP, les utilisateurs de l'organisation n'ont qu'un seul identifiant pour leur session Windows et pour accéder au support technique.
+    </p>
+
+    <p>Les bénéfices pour l'utilisateur :</p>
+    <ul>
+      <li><strong>Authentification unique (SSO partiel) :</strong> Moins de mots de passe à retenir.</li>
+      <li><strong>Expérience fluide :</strong> Un accès immédiat aux outils de l'entreprise dès la création du compte dans l'AD.</li>
+    </ul>
+
+    <div class="my-4">
+      <img class="schema-image" src="../photos/shema reseaux real02.png" alt="Schéma d'interconnexion LDAP" />
+    </div>
+
+    <p>
+     <a class="btn ml-4" href="../doc/Documentation Technique.pdf">Procedure d'installation et configuration</a>
+ 
+      <a class="btn ml-4" href="#">Support de presentation details de la realisation</a>
+    </p>
+  </section>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="mt-4 flex justify-center">
+                <a class="btn" href="E6.html"
+                  ><i class="fa-solid fa-arrow-left" aria-hidden="true"></i
+                  >Retour</a
+                >
+      </div>
+
+        </div>        
+      </section>
     </main>
  
     

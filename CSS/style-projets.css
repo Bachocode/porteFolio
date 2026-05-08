@@ -208,3 +208,12 @@
     background: rgba(168, 85, 247, 0.1);
   }
 }
+
+/* Consistent sizing for project schema images */
+.schema-image {
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  display: block;
+  margin: 0.75rem auto;
+}
