@@ -406,4 +406,110 @@
       });
     });
   }
+
+  // Image modal / lightbox for image links (png, jpg, gif, webp, svg)
+  const imgHrefRe = /\.(jpe?g|png|gif|webp|svg)(\?|#|$)/i;
+
+  function ensureImageModal() {
+    let modal = document.getElementById("imageModal");
+    if (modal) return modal;
+
+    modal = document.createElement("div");
+    modal.id = "imageModal";
+    modal.className = "image-modal";
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("aria-modal", "true");
+    modal.setAttribute("aria-hidden", "true");
+
+    modal.innerHTML = `
+      <div class="image-modal-backdrop" data-image-close="true" style="position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:10000;"></div>
+      <div class="image-modal-dialog" role="document" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:10001;padding:2rem;pointer-events:none;">
+        <div style="max-width:90%;max-height:90%;pointer-events:auto;position:relative;">
+          <button type="button" class="btn image-modal-close" data-image-close="true" aria-label="Fermer" style="position:absolute;right:0;top:-1.5rem;z-index:10002;background:transparent;border:none;color:#fff;font-size:1.2rem;">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+          <img id="imageModalImg" src="" alt="" style="max-width:100%;max-height:90vh;border-radius:6px;display:block;margin:0 auto;box-shadow:0 10px 30px rgba(0,0,0,.5);" />
+          <div id="imageModalTitle" style="color:#fff;text-align:center;margin-top:.5rem;"></div>
+          
+        </div>
+      </div>
+    `.trim();
+
+    document.body.appendChild(modal);
+
+    modal.addEventListener("click", (e) => {
+      const target = e.target;
+      if (target && target.closest && target.closest('[data-image-close="true"]')) {
+        const isCloseBtn = !!target.closest('.image-modal-close');
+        closeImageModal();
+        if (isCloseBtn) {
+          // navigate to P-estiam.html when the close (cross) button is used
+          try {
+            window.location.href = 'P-estiam.html';
+          } catch (_) {}
+        }
+      }
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("is-open")) {
+        closeImageModal();
+      }
+    });
+
+    return modal;
+  }
+
+  function openImageModal(url, titleText) {
+    const modal = ensureImageModal();
+    const img = modal.querySelector("#imageModalImg");
+    const title = modal.querySelector("#imageModalTitle");
+
+    lastActiveEl = document.activeElement;
+    previousBodyOverflow = document.body.style.overflow || "";
+    document.body.style.overflow = "hidden";
+
+    img.setAttribute("src", url);
+    img.setAttribute("alt", titleText || "");
+    title.textContent = titleText || "";
+
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+  }
+
+  function closeImageModal() {
+    const modal = document.getElementById("imageModal");
+    if (!modal) return;
+    const img = modal.querySelector("#imageModalImg");
+
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    if (img) img.setAttribute("src", "");
+
+    document.body.style.overflow = previousBodyOverflow;
+
+    if (lastActiveEl && lastActiveEl.focus) {
+      try {
+        lastActiveEl.focus();
+      } catch (_) {}
+    }
+  }
+
+  const imageLinks = Array.from(document.querySelectorAll('a[href]')).filter((a) => {
+    const href = (a.getAttribute('href') || '').trim();
+    if (!href) return false;
+    if (a.getAttribute('data-image-popup') === 'false') return false;
+    return imgHrefRe.test(href);
+  });
+
+  if (imageLinks.length) {
+    imageLinks.forEach((a) => {
+      a.addEventListener('click', (e) => {
+        if (shouldOpenInNewTab(e)) return;
+        e.preventDefault();
+        const title = a.getAttribute('data-image-title') || a.getAttribute('title') || a.textContent.trim() || '';
+        openImageModal(a.href, title);
+      });
+    });
+  }
 })();
