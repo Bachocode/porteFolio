@@ -63,7 +63,11 @@
     if (!header) return;
 
     const currentPath = normalizePath(window.location.pathname);
-    const currentDir = currentPath.includes("/HTML/") ? "HTML" : "";
+    const htmlIndex = currentPath.indexOf("/HTML/");
+    const currentDir =
+      htmlIndex === -1
+        ? ""
+        : currentPath.slice(htmlIndex + 1, currentPath.lastIndexOf("/"));
 
     const elements = Array.from(
       header.querySelectorAll("[href^='/'], [src^='/']")
