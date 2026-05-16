@@ -58,37 +58,56 @@
     return upSegments.concat(downSegments).join("/") || ".";
   }
 
-  function normalizeRootRelativeHeaderLinks() {
+  function getAppRootPath() {
+    const appScript = Array.from(document.scripts).find((script) =>
+      script.src.includes("JS/app.js") || script.src.endsWith("/app.js")
+    );
+    if (!appScript) return "";
+
+    const scriptUrl = new URL(appScript.src, window.location.href);
+    const path = normalizePath(scriptUrl.pathname);
+    return path.replace(/JS\/app\.js$/, "");
+  }
+
+  function normalizeHeaderPaths() {
     const header = document.querySelector(".site-nav");
     if (!header) return;
 
+    const rootPath = getAppRootPath();
     const currentPath = normalizePath(window.location.pathname);
-    const htmlIndex = currentPath.indexOf("/HTML/");
-    const currentDir =
-      htmlIndex === -1
-        ? ""
-        : currentPath.slice(htmlIndex + 1, currentPath.lastIndexOf("/"));
+    const relativeCurrentPath = rootPath && currentPath.startsWith(rootPath)
+      ? currentPath.slice(rootPath.length)
+      : currentPath;
+
+    const currentDir = relativeCurrentPath
+      .replace(/\/[^/]*$/, "")
+      .replace(/^\//, "");
 
     const elements = Array.from(
-      header.querySelectorAll("[href^='/'], [src^='/']")
+      header.querySelectorAll("[data-target], [data-src]")
     );
 
     elements.forEach((el) => {
-      const attr = el.hasAttribute("href") ? "href" : el.hasAttribute("src") ? "src" : null;
-      if (!attr) return;
-      const value = el.getAttribute(attr);
-      if (!value || !value.startsWith("/")) return;
+      const targetAttr = el.hasAttribute("data-target") ? "data-target" : el.hasAttribute("data-src") ? "data-src" : null;
+      if (!targetAttr) return;
 
-      const target = value.slice(1);
+      const target = el.getAttribute(targetAttr);
+      if (!target) return;
+
       const relativePath = currentDir
         ? getRelativePath(currentDir, target)
         : target;
 
-      el.setAttribute(attr, relativePath);
+      if (el.hasAttribute("href")) {
+        el.setAttribute("href", relativePath);
+      }
+      if (el.hasAttribute("src")) {
+        el.setAttribute("src", relativePath);
+      }
     });
   }
 
-  normalizeRootRelativeHeaderLinks();
+  normalizeHeaderPaths();
 
   // Reveal on scroll with staggered animation
   const revealEls = Array.from(document.querySelectorAll(".reveal"));
