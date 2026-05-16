@@ -40,6 +40,52 @@
 
   await loadIncludes();
 
+  function getRelativePath(fromPath, toPath) {
+    const fromSegments = fromPath.split("/").filter(Boolean);
+    const toSegments = toPath.split("/").filter(Boolean);
+    let commonIndex = 0;
+
+    while (
+      commonIndex < fromSegments.length &&
+      commonIndex < toSegments.length &&
+      fromSegments[commonIndex] === toSegments[commonIndex]
+    ) {
+      commonIndex += 1;
+    }
+
+    const upSegments = fromSegments.slice(commonIndex).map(() => "..");
+    const downSegments = toSegments.slice(commonIndex);
+    return upSegments.concat(downSegments).join("/") || ".";
+  }
+
+  function normalizeRootRelativeHeaderLinks() {
+    const header = document.querySelector(".site-nav");
+    if (!header) return;
+
+    const currentPath = normalizePath(window.location.pathname);
+    const currentDir = currentPath.includes("/HTML/") ? "HTML" : "";
+
+    const elements = Array.from(
+      header.querySelectorAll("[href^='/'], [src^='/']")
+    );
+
+    elements.forEach((el) => {
+      const attr = el.hasAttribute("href") ? "href" : el.hasAttribute("src") ? "src" : null;
+      if (!attr) return;
+      const value = el.getAttribute(attr);
+      if (!value || !value.startsWith("/")) return;
+
+      const target = value.slice(1);
+      const relativePath = currentDir
+        ? getRelativePath(currentDir, target)
+        : target;
+
+      el.setAttribute(attr, relativePath);
+    });
+  }
+
+  normalizeRootRelativeHeaderLinks();
+
   // Reveal on scroll with staggered animation
   const revealEls = Array.from(document.querySelectorAll(".reveal"));
   if (revealEls.length) {
